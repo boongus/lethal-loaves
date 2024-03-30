@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
+using Photon.Realtime;
 
 public class launcher : MonoBehaviourPunCallbacks
 {
@@ -11,7 +12,7 @@ public class launcher : MonoBehaviourPunCallbacks
     [SerializeField] TMP_Text errorText;
     [SerializeField] TMP_Text RoomNameText;
     [SerializeField] Transform roomListContent;
-    [SerializeField] GameObject roomListPrefab;
+    [SerializeField] GameObject roomListItemPrefab;
     void Start()
     {
         Debug.Log("cinnectecing master");
@@ -64,6 +65,13 @@ public class launcher : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-
+        foreach (Transform trans in roomListContent) 
+        { 
+            Destroy(trans.gameObject);
+        }
+        for(int i = 0; i < roomList.Count; i++)
+        {
+            Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
+        }
     }
 }
