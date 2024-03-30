@@ -10,6 +10,8 @@ public class launcher : MonoBehaviourPunCallbacks
     [SerializeField] TMP_InputField roomNameInputField;
     [SerializeField] TMP_Text errorText;
     [SerializeField] TMP_Text RoomNameText;
+    [SerializeField] Transform roomListContent;
+    [SerializeField] GameObject roomListPrefab;
     void Start()
     {
         Debug.Log("cinnectecing master");
@@ -58,6 +60,10 @@ public class launcher : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         menuManager.instance.OpenMenu("title");
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
 
     }
 }
