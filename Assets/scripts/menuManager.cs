@@ -1,24 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class menuManager : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
-    [SerializeField] menu[] menus;
-    public static menuManager instance;
+    public static MenuManager Instance;
 
-    private void Awake()
+    [SerializeField] Menu[] menus;
+
+    void Awake()
     {
-        
-        instance = this;
+        Instance = this;
     }
+
     public void OpenMenu(string menuName)
     {
-        for(int i = 0; i < menus.Length; i++)
+        for (int i = 0; i < menus.Length; i++)
         {
             if (menus[i].menuName == menuName)
             {
-                OpenMenu(menus[i]);
+                menus[i].Open();
             }
             else if (menus[i].open)
             {
@@ -26,7 +28,8 @@ public class menuManager : MonoBehaviour
             }
         }
     }
-    public void OpenMenu(menu menu)
+
+    public void OpenMenu(Menu menu)
     {
         for (int i = 0; i < menus.Length; i++)
         {
@@ -38,7 +41,7 @@ public class menuManager : MonoBehaviour
         menu.Open();
     }
 
-    public void CloseMenu(menu menu)
+    public void CloseMenu(Menu menu)
     {
         menu.Close();
     }
